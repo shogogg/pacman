@@ -12,6 +12,7 @@ use Pacman\Contracts\ParserOutput;
 use Pacman\Parsers\AnyOf;
 use Pacman\Parsers\CharParser;
 use Pacman\Parsers\ClosureParser;
+use Pacman\Parsers\RegExpParser;
 use Pacman\Parsers\StringParser;
 
 final class Pacman
@@ -81,6 +82,16 @@ final class Pacman
     public static function lower(): Parser
     {
         return CharParser::of(ctype_lower(...));
+    }
+
+    /**
+     * Creates a parser that matches regular expression.
+     *
+     * @return Parser<string>
+     */
+    public static function regexp(string $pattern): Parser
+    {
+        return RegExpParser::of($pattern);
     }
 
     /**
