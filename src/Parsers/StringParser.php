@@ -45,7 +45,7 @@ final readonly class StringParser extends AbstractParser
     /** {@inheritdoc} */
     public function parseFrom(string $input, int $offset = 0): ParserOutput
     {
-        return substr($input, $offset, $this->length) === $this->expected
+        return mb_substr($input, $offset, $this->length) === $this->expected
             ? Success::of($this->expected, $this->length)
             : Failure::getInstance();
     }

@@ -68,7 +68,7 @@ final class Pacman
     {
         return ClosureParser::of(function (string $input, int $offset) use ($success): ParserOutput {
             return $success
-                ? Success::of(substr($input, $offset), strlen($input) - $offset)
+                ? Success::of(mb_substr($input, $offset), mb_strlen($input) - $offset)
                 : Failure::getInstance();
         });
     }

@@ -25,7 +25,8 @@
     ]
   },
   "require": {
-    "php": "^8.2"
+    "php": "^8.2",
+    "ext-mbstring": "*"
   },
   "require-dev": {
     "pestphp/pest": "^3.8",

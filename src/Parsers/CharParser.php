@@ -42,7 +42,7 @@ final readonly class CharParser extends AbstractParser
     /** {@inheritdoc} */
     protected function parseFrom(string $input, int $offset): ParserOutput
     {
-        $char = substr($input, $offset, 1);
+        $char = mb_substr($input, $offset, 1);
         return ($this->predicate)($char) ? Success::of($char, 1) : Failure::getInstance();
     }
 }
