@@ -25,4 +25,17 @@ final class Pacman
             return ctype_alpha($char) ? Success::of($char, 1) : Failure::getInstance();
         });
     }
+
+    /**
+     * Creates a parser that matches numeric characters.
+     *
+     * @return Parser<string>
+     */
+    public static function digit(): Parser
+    {
+        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
+            $char = substr($input, $offset, 1);
+            return ctype_digit($char) ? Success::of($char, 1) : Failure::getInstance();
+        });
+    }
 }
