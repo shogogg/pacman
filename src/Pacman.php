@@ -23,7 +23,7 @@ final class Pacman
      */
     public static function alpha(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_alpha($char));
+        return CharParser::of(ctype_alpha(...));
     }
 
     /**
@@ -33,7 +33,7 @@ final class Pacman
      */
     public static function alphaNum(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_alnum($char));
+        return CharParser::of(ctype_alnum(...));
     }
 
     /**
@@ -55,7 +55,7 @@ final class Pacman
      */
     public static function digit(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_digit($char));
+        return CharParser::of(ctype_digit(...));
     }
 
     /**
@@ -80,7 +80,7 @@ final class Pacman
      */
     public static function lower(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_lower($char));
+        return CharParser::of(ctype_lower(...));
     }
 
     /**
@@ -100,7 +100,7 @@ final class Pacman
      */
     public static function upper(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_upper($char));
+        return CharParser::of(ctype_upper(...));
     }
 
     /**
@@ -110,6 +110,6 @@ final class Pacman
      */
     public static function whitespace(): Parser
     {
-        return CharParser::of(fn (string $char): bool => ctype_space($char));
+        return CharParser::of(ctype_space(...));
     }
 }
