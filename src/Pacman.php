@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Pacman;
 
 use Pacman\Contracts\Parser;
+use Pacman\Parsers\AnyOf;
 use Pacman\Parsers\CharParser;
 use Pacman\Parsers\StringParser;
 
@@ -31,6 +32,18 @@ final class Pacman
     public static function alphaNum(): Parser
     {
         return CharParser::of(fn (string $char): bool => ctype_alnum($char));
+    }
+
+    /**
+     * Creates a parser that matches any of the specified parsers.
+     *
+     * @template T
+     * @param Parser<T> ...$parsers
+     * @return Parser<T>
+     */
+    public static function anyOf(Parser ...$parsers): Parser
+    {
+        return new AnyOf($parsers);
     }
 
     /**
