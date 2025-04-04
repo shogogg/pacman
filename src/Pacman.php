@@ -8,8 +8,10 @@ declare(strict_types=1);
 namespace Pacman;
 
 use Pacman\Contracts\Parser;
+use Pacman\Contracts\ParserOutput;
 use Pacman\Parsers\AnyOf;
 use Pacman\Parsers\CharParser;
+use Pacman\Parsers\ClosureParser;
 use Pacman\Parsers\StringParser;
 
 final class Pacman
@@ -54,6 +56,21 @@ final class Pacman
     public static function digit(): Parser
     {
         return CharParser::of(fn (string $char): bool => ctype_digit($char));
+    }
+
+    /**
+     * Creates a fake parser that always succeeds or fails.
+     *
+     * @param bool $success
+     * @return Parser<string>
+     */
+    public static function fake(bool $success): Parser
+    {
+        return ClosureParser::of(function (string $input, int $offset) use ($success): ParserOutput {
+            return $success
+                ? Success::of(substr($input, $offset), strlen($input) - $offset)
+                : Failure::getInstance();
+        });
     }
 
     /**
