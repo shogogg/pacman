@@ -9,6 +9,7 @@ namespace Pacman;
 
 use Pacman\Contracts\Parser;
 use Pacman\Parsers\CharParser;
+use Pacman\Parsers\StringParser;
 
 final class Pacman
 {
@@ -50,6 +51,16 @@ final class Pacman
     public static function lower(): Parser
     {
         return CharParser::of(fn (string $char): bool => ctype_lower($char));
+    }
+
+    /**
+     * Creates a parser that matches specified string.
+     *
+     * @return Parser<string>
+     */
+    public static function string(string $expected): Parser
+    {
+        return StringParser::of($expected);
     }
 
     /**
