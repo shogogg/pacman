@@ -8,8 +8,7 @@ declare(strict_types=1);
 namespace Pacman;
 
 use Pacman\Contracts\Parser;
-use Pacman\Contracts\ParserOutput;
-use Pacman\Parsers\ClosureParser;
+use Pacman\Parsers\CharParser;
 
 final class Pacman
 {
@@ -20,10 +19,7 @@ final class Pacman
      */
     public static function alpha(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_alpha($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_alpha($char));
     }
 
     /**
@@ -33,10 +29,7 @@ final class Pacman
      */
     public static function alphaNum(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_alnum($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_alnum($char));
     }
 
     /**
@@ -46,10 +39,7 @@ final class Pacman
      */
     public static function digit(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_digit($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_digit($char));
     }
 
     /**
@@ -59,10 +49,7 @@ final class Pacman
      */
     public static function lower(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_lower($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_lower($char));
     }
 
     /**
@@ -72,10 +59,7 @@ final class Pacman
      */
     public static function upper(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_upper($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_upper($char));
     }
 
     /**
@@ -85,9 +69,6 @@ final class Pacman
      */
     public static function whitespace(): Parser
     {
-        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
-            $char = substr($input, $offset, 1);
-            return ctype_space($char) ? Success::of($char, 1) : Failure::getInstance();
-        });
+        return CharParser::of(fn (string $char): bool => ctype_space($char));
     }
 }
