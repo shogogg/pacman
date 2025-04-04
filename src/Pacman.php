@@ -51,4 +51,17 @@ final class Pacman
             return ctype_digit($char) ? Success::of($char, 1) : Failure::getInstance();
         });
     }
+
+    /**
+     * Creates a parser that matches lowercase alphabetic characters.
+     *
+     * @return Parser<string>
+     */
+    public static function lower(): Parser
+    {
+        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
+            $char = substr($input, $offset, 1);
+            return ctype_lower($char) ? Success::of($char, 1) : Failure::getInstance();
+        });
+    }
 }

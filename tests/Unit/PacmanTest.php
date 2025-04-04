@@ -21,7 +21,7 @@ describe('::alpha', function (): void {
         expect($actual->value())->toBe($expected);
     })->with([
         ['a', 'a'],
-        ['bc', 'b'],
+        ['BC', 'B'],
         ['xyz', 'x'],
     ]);
 
@@ -113,5 +113,39 @@ describe('::digit', function (): void {
         ['!123'],
         [' 123'],
         ['abc123'],
+    ]);
+});
+
+describe('::lower', function (): void {
+    it('should matches any lowercase alphabetic character', function (string $input, string $expected): void {
+        // Arrange
+        $lower = Pacman::lower();
+
+        // Act
+        $actual = $lower->parse($input);
+
+        // Assert
+        expect($actual)->toBeSuccess();
+        expect($actual->length())->toBe(1);
+        expect($actual->value())->toBe($expected);
+    })->with([
+        ['abc', 'a'],
+        ['xyz', 'x'],
+    ]);
+
+    it('should not matches any non-lowercase alphabetic character', function (string $input): void {
+        // Arrange
+        $lower = Pacman::lower();
+
+        // Act
+        $actual = $lower->parse($input);
+
+        // Assert
+        expect($actual)->toBeFailure();
+    })->with([
+        ['ABC'],
+        ['123'],
+        ['!abc'],
+        [' xyz'],
     ]);
 });
