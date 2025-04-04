@@ -1,0 +1,41 @@
+{
+  "name": "shogogg/pacman",
+  "version": "0.1.0",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Pacman\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "shogogg",
+      "email": "shogo@studiofly.net"
+    }
+  ],
+  "scripts": {
+    "analyze": "phpstan analyse -c phpstan.neon",
+    "fix": "php-cs-fixer fix --config=.php-cs-fixer.php",
+    "fix:dry-run": "composer fix -- --dry-run --diff --verbose",
+    "test": "pest --testdox",
+    "test:watch": [
+      "Composer\\Config::disableProcessTimeout",
+      "pest --testdox --watch"
+    ]
+  },
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "pestphp/pest": "^3.8",
+    "phpstan/phpstan": "^2.1",
+    "friendsofphp/php-cs-fixer": "^3.75",
+    "pestphp/pest-plugin-watch": "^3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

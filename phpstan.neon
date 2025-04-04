@@ -1,0 +1,9 @@
+parameters:
+	level: 8
+	paths:
+		- src
+		- tests
+	ignoreErrors:
+		- '#Call to an undefined method Pest\\Expectation<.+?>::#'
+includes:
+  - vendor/pestphp/pest/extension.neon
