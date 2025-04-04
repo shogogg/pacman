@@ -149,3 +149,37 @@ describe('::lower', function (): void {
         [' xyz'],
     ]);
 });
+
+describe('::upper', function (): void {
+    it('should matches any uppercase alphabetic character', function (string $input, string $expected): void {
+        // Arrange
+        $upper = Pacman::upper();
+
+        // Act
+        $actual = $upper->parse($input);
+
+        // Assert
+        expect($actual)->toBeSuccess();
+        expect($actual->length())->toBe(1);
+        expect($actual->value())->toBe($expected);
+    })->with([
+        ['A', 'A'],
+        ['XYZ', 'X'],
+    ]);
+
+    it('should not matches any non-uppercase alphabetic character', function (string $input): void {
+        // Arrange
+        $upper = Pacman::upper();
+
+        // Act
+        $actual = $upper->parse($input);
+
+        // Assert
+        expect($actual)->toBeFailure();
+    })->with([
+        ['abc'],
+        ['123'],
+        ['!ABC'],
+        [' ABC'],
+    ]);
+});
