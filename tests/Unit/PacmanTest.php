@@ -183,3 +183,38 @@ describe('::upper', function (): void {
         [' ABC'],
     ]);
 });
+
+describe('::whitespace', function (): void {
+    it('should matches any whitespace character', function (string $input, string $expected): void {
+        // Arrange
+        $whitespace = Pacman::whitespace();
+
+        // Act
+        $actual = $whitespace->parse($input);
+
+        // Assert
+        expect($actual)->toBeSuccess();
+        expect($actual->length())->toBe(1);
+        expect($actual->value())->toBe($expected);
+    })->with([
+        [' ', ' '],
+        ["\n", "\n"],
+        ["\t\r\n", "\t"],
+        ["\r\n", "\r"],
+    ]);
+
+    it('should not matches any non-whitespace character', function (string $input): void {
+        // Arrange
+        $whitespace = Pacman::whitespace();
+
+        // Act
+        $actual = $whitespace->parse($input);
+
+        // Assert
+        expect($actual)->toBeFailure();
+    })->with([
+        ['abc'],
+        ['123'],
+        ['!xyz'],
+    ]);
+});
