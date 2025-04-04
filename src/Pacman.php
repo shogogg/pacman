@@ -27,6 +27,19 @@ final class Pacman
     }
 
     /**
+     * Creates a parser that matches alphabetic or numeric characters.
+     *
+     * @return Parser<string>
+     */
+    public static function alphaNum(): Parser
+    {
+        return ClosureParser::of(function (string $input, int $offset): ParserOutput {
+            $char = substr($input, $offset, 1);
+            return ctype_alnum($char) ? Success::of($char, 1) : Failure::getInstance();
+        });
+    }
+
+    /**
      * Creates a parser that matches numeric characters.
      *
      * @return Parser<string>

@@ -41,6 +41,39 @@ describe('::alpha', function (): void {
     ]);
 });
 
+describe('::alphaNum', function (): void {
+    it('should matches any alphanumeric character', function (string $input, string $expected): void {
+        // Arrange
+        $alphaNum = Pacman::alphaNum();
+
+        // Act
+        $actual = $alphaNum->parse($input);
+
+        // Assert
+        expect($actual)->toBeSuccess();
+        expect($actual->length())->toBe(1);
+        expect($actual->value())->toBe($expected);
+    })->with([
+        ['abc', 'a'],
+        ['123', '1'],
+        ['abc123', 'a'],
+    ]);
+
+    it('should not matches any non-alphanumeric character', function (string $input): void {
+        // Arrange
+        $alphaNum = Pacman::alphaNum();
+
+        // Act
+        $actual = $alphaNum->parse($input);
+
+        // Assert
+        expect($actual)->toBeFailure();
+    })->with([
+        ['!abc'],
+        [' '],
+    ]);
+});
+
 describe('::digit', function (): void {
     it('should matches any numeric character', function (string $input, string $expected): void {
         // Arrange
