@@ -17,7 +17,14 @@ use Pacman\Parsers\StringParser;
 
 final class Pacman
 {
+    public const LOWER_ALPHABETS = 'abcdefghijklmnopqrstuvwxyz';
+    public const UPPER_ALPHABETS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public const ALPHABETS = self::LOWER_ALPHABETS . self::UPPER_ALPHABETS;
+    public const DIGITS = '0123456789';
+    public const WHITESPACES = " \t\n\r\0\x0B";
+
     /**
+     *
      * Creates a parser that matches alphabetic characters.
      *
      * @return Parser<string>
@@ -45,6 +52,19 @@ final class Pacman
     public static function anyChar(): Parser
     {
         return CharParser::of(fn (string $input): bool => mb_strlen($input) > 0);
+    }
+
+    /**
+     * Creates a parser that matches any character from the specified options.
+     *
+     * @param string $options
+     * @param string ...$additionalOptions
+     * @return Parser<string>
+     */
+    public static function anyCharOf(string $options, string ...$additionalOptions): Parser
+    {
+        $chars = $options . implode('', $additionalOptions);
+        return CharParser::of(fn (string $input): bool => str_contains($chars, $input));
     }
 
     /**
