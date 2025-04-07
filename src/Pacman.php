@@ -38,6 +38,16 @@ final class Pacman
     }
 
     /**
+     * Creates a parser that matches any character.
+     *
+     * @return Parser<string>
+     */
+    public static function anyChar(): Parser
+    {
+        return CharParser::of(fn (string $input): bool => mb_strlen($input) > 0);
+    }
+
+    /**
      * Creates a parser that matches any of the specified parsers.
      *
      * @template T
