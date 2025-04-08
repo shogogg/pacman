@@ -80,6 +80,17 @@ final class Pacman
     }
 
     /**
+     * Creates a parser that matches a specific character.
+     *
+     * @param string $char
+     * @return Parser<string>
+     */
+    public static function char(string $char): Parser
+    {
+        return CharParser::of(fn (string $input): bool => $input === $char);
+    }
+
+    /**
      * Creates a parser that matches numeric characters.
      *
      * @return Parser<string>
