@@ -17,15 +17,27 @@ use Pacman\Failure;
  * @template T
  * @extends AbstractParser<T>
  */
-final readonly class AnyOf extends AbstractParser
+final readonly class AnyOfParser extends AbstractParser
 {
     /**
-     * {@see AnyOf} constructor.
+     * {@see AnyOfParser} constructor.
      *
-     * @param Parser<T> ...$parsers
+     * @param Parser<T>[] $parsers
      */
-    public function __construct(private array $parsers)
+    private function __construct(private array $parsers)
     {
+    }
+
+    /**
+     * Creates a new instance of {@see AnyOfParser}.
+     *
+     * @template U
+     * @param Parser<U>[] $parsers
+     * @return Parser<U>
+     */
+    public static function of(array $parsers): Parser
+    {
+        return new self($parsers);
     }
 
     /** {@inheritdoc} */

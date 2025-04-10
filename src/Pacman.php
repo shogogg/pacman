@@ -9,7 +9,7 @@ namespace Pacman;
 
 use Pacman\Contracts\Parser;
 use Pacman\Contracts\ParserOutput;
-use Pacman\Parsers\AnyOf;
+use Pacman\Parsers\AnyOfParser;
 use Pacman\Parsers\CharParser;
 use Pacman\Parsers\ClosureParser;
 use Pacman\Parsers\RegExpParser;
@@ -71,12 +71,13 @@ final class Pacman
      * Creates a parser that matches any of the specified parsers.
      *
      * @template T
-     * @param Parser<T> ...$parsers
+     * @param Parser<T> $head
+     * @param Parser<T> ...$tail
      * @return Parser<T>
      */
-    public static function anyOf(Parser ...$parsers): Parser
+    public static function anyOf(Parser $head, Parser ...$tail): Parser
     {
-        return new AnyOf($parsers);
+        return AnyOfParser::of([$head, ...$tail]);
     }
 
     /**
